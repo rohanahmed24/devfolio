@@ -377,7 +377,7 @@
 .footer-content-wrapper {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
 }
 
 .footer-logo-wrapper img {
@@ -399,9 +399,40 @@
 }
 
 .footer-icons-wrapper {
+    margin-top: 20px;
     display: flex;
+    justify-content: end;
     gap: 20px;
     font-size: 20px;
+}
+
+.footer-copyright p {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+    margin-top: 20px;
+}
+
+.policies {
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    align-items: end;
+    margin-top: 20px;
+}
+
+.policies p a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* footer styles end here */
