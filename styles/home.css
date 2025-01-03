@@ -9,7 +9,7 @@
 .pages-wrapper {
     background-color: black;
     max-width: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 /* navbar styles start here */
