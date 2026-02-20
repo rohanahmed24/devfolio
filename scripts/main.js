@@ -343,6 +343,8 @@ function initServices() {
    11. TESTIMONIALS — Swiper
 ════════════════════════════════════════════════════════ */
 function initTestimonials() {
+  const total = document.querySelectorAll('#testimonialSwiper .swiper-slide').length;
+
   const swiper = new Swiper('#testimonialSwiper', {
     slidesPerView: 1,
     spaceBetween: 32,
@@ -357,9 +359,13 @@ function initTestimonials() {
       nextEl: '#tNext',
     },
     on: {
+      init(s) {
+        const frac = document.getElementById('testimonialFrac');
+        if (frac) frac.textContent = `${s.realIndex + 1} / ${total}`;
+      },
       slideChange(s) {
         const frac = document.getElementById('testimonialFrac');
-        if (frac) frac.textContent = `${s.realIndex + 1} / ${s.slides.length - 2}`;
+        if (frac) frac.textContent = `${s.realIndex + 1} / ${total}`;
       }
     },
     breakpoints: {
