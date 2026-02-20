@@ -88,7 +88,7 @@ function initLenis() {
       const target = document.querySelector(anchor.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: -80, duration: 1.8 });
+      lenis.scrollTo(target, { offset: -96, duration: 1.8 });
     });
   });
 
@@ -309,13 +309,15 @@ function initServices() {
   const images = document.querySelectorAll('.svc-img');
 
   function activateService(index) {
+    if (items[index].classList.contains('active')) return;
+
     items.forEach((item, i) => item.classList.toggle('active', i === index));
 
     images.forEach((img, i) => {
       if (i === index) {
         gsap.to(img, { opacity: 1, scale: 1, duration: .6, ease: 'expo.out' });
         img.classList.add('active');
-      } else {
+      } else if (img.classList.contains('active')) {
         gsap.to(img, { opacity: 0, scale: 1.04, duration: .4, ease: 'expo.out' });
         img.classList.remove('active');
       }
@@ -530,20 +532,9 @@ function initHeroParallax() {
 function initCursor() {
   if (window.matchMedia('(pointer: coarse)').matches) return; // skip mobile
 
-  const cursor = document.createElement('div');
-  cursor.className = 'cursor-blob';
-  cursor.style.cssText = `
-    position: fixed;
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    background: var(--ink);
-    pointer-events: none;
-    z-index: 9998;
-    mix-blend-mode: difference;
-    will-change: transform;
-    transition: width .3s, height .3s, background .3s;
-  `;
-  document.body.appendChild(cursor);
+  const cursor = document.querySelector('.cursor-blob');
+  if (!cursor) return;
+  cursor.style.display = 'block';
 
   let mx = 0, my = 0;
   let cx = 0, cy = 0;
