@@ -532,20 +532,9 @@ function initHeroParallax() {
 function initCursor() {
   if (window.matchMedia('(pointer: coarse)').matches) return; // skip mobile
 
-  const cursor = document.createElement('div');
-  cursor.className = 'cursor-blob';
-  cursor.style.cssText = `
-    position: fixed;
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    background: var(--ink);
-    pointer-events: none;
-    z-index: 9998;
-    mix-blend-mode: difference;
-    will-change: transform;
-    transition: width .3s, height .3s, background .3s;
-  `;
-  document.body.appendChild(cursor);
+  const cursor = document.querySelector('.cursor-blob');
+  if (!cursor) return;
+  cursor.style.display = 'block';
 
   let mx = 0, my = 0;
   let cx = 0, cy = 0;

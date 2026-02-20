@@ -1313,3 +1313,22 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   .testi-card blockquote { font-size: 1.1rem; }
   .about__stats { grid-template-columns: 1fr; gap: 0; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════════════════════ */
+.cursor-blob {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink);
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: difference;
+  will-change: transform;
+  transition: width .3s, height .3s, background .3s;
+  display: none;
+}
