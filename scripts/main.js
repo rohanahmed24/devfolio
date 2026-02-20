@@ -85,7 +85,9 @@ function initLenis() {
       const target = document.querySelector(anchor.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: -80, duration: 1.8 });
+      const nav = document.querySelector('nav');
+      const navHeight = nav ? nav.offsetHeight : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) * 16 || 80);
+      lenis.scrollTo(target, { offset: -navHeight, duration: 1.8 });
     });
   });
 
@@ -533,8 +535,8 @@ function initCursor() {
   if (!cursor) return;
   cursor.style.display = 'block';
 
-  let mx = 0, my = 0;
-  let cx = 0, cy = 0;
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let cx = mx, cy = my;
 
   window.addEventListener('mousemove', e => {
     mx = e.clientX;
@@ -544,7 +546,7 @@ function initCursor() {
   function tick() {
     cx += (mx - cx) * 0.12;
     cy += (my - cy) * 0.12;
-    cursor.style.transform = `translate(${cx - 6}px, ${cy - 6}px)`;
+    cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
     requestAnimationFrame(tick);
   }
   tick();
