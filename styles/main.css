@@ -414,7 +414,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 .hero__avail {
   position: absolute;
   top: 1.25rem;
-  left: -1.5rem;
+  left: 0;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: 100px;
@@ -426,6 +426,11 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   gap: .5rem;
   box-shadow: 0 4px 24px rgba(0,0,0,.06);
   white-space: nowrap;
+  z-index: 2;
+}
+
+@media (min-width: 769px) {
+  .hero__avail { left: -1.5rem; }
 }
 
 .hero__avail-dot {
@@ -445,7 +450,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 .hero__badge {
   position: absolute;
   bottom: 2rem;
-  right: -2rem;
+  right: 0;
   background: var(--ink);
   color: var(--white);
   border-radius: 12px;
@@ -456,6 +461,11 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   gap: .2rem;
   min-width: 120px;
   box-shadow: 0 8px 32px rgba(0,0,0,.18);
+  z-index: 2;
+}
+
+@media (min-width: 769px) {
+  .hero__badge { right: -2rem; }
 }
 .hero__badge-num {
   font-family: var(--serif);
@@ -514,31 +524,16 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 
 .work__grid {
   display: grid;
-  grid-template-columns: 7fr 5fr;
-  gap: clamp(1rem, 2vw, 1.75rem);
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  align-items: start;
 }
 
-/* Asymmetric layout — matches jules studio alternating pattern */
-.project-card--wide  { grid-column: 1; }
-.project-card--narrow { grid-column: 2; }
-/* flip the 2nd row */
-.project-card:nth-child(3) { grid-column: 1; grid-row: 2; }
-.project-card:nth-child(4) { grid-column: 2; grid-row: 2; }
-.project-card--wide:nth-child(4) { grid-column: 2; }
-.project-card--narrow:nth-child(3) { grid-column: 1; }
-
-/* Reorder to achieve the asymmetric pattern */
-.work__grid {
-  grid-template-columns: 6fr 5fr;
-}
+/* Asymmetric layout — wide cards get more space */
 .project-card:nth-child(1) { grid-column: 1; }
-.project-card:nth-child(2) { grid-column: 2; }
-.project-card:nth-child(3) { grid-column: 1; }
-.project-card:nth-child(4) { grid-column: 2; }
-
-/* Offset 2nd & 4th card vertically for visual rhythm */
-.project-card:nth-child(2),
-.project-card:nth-child(4) { margin-top: clamp(2rem, 6vw, 5rem); }
+.project-card:nth-child(2) { grid-column: 2; margin-top: clamp(3rem, 8vw, 6rem); }
+.project-card:nth-child(3) { grid-column: 2; }
+.project-card:nth-child(4) { grid-column: 1; margin-top: clamp(3rem, 8vw, 6rem); }
 
 .project-card__link { display: block; }
 
@@ -548,7 +543,18 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   border-radius: 2px;
   aspect-ratio: 4/3;
 }
-.project-card--narrow .project-card__img-wrap { aspect-ratio: 3/4; }
+
+/* First and fourth cards (left column) are wider landscape */
+.project-card:nth-child(1) .project-card__img-wrap,
+.project-card:nth-child(4) .project-card__img-wrap {
+  aspect-ratio: 16/10;
+}
+
+/* Second and third cards (right column) are portrait */
+.project-card:nth-child(2) .project-card__img-wrap,
+.project-card:nth-child(3) .project-card__img-wrap {
+  aspect-ratio: 3/4;
+}
 
 .project-card__img-wrap img {
   width: 100%;
@@ -755,7 +761,10 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 }
 
 /* Image panel */
-.services__images { position: sticky; top: 8rem; height: clamp(350px, 55vh, 600px); }
+.services__images {
+  position: relative;
+  height: clamp(350px, 55vh, 600px);
+}
 .svc-img {
   position: absolute;
   inset: 0;
@@ -1199,8 +1208,9 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   .hero__left { padding-right: 0; }
   .hero__right { justify-content: center; }
   .hero__image-frame { width: 100%; max-width: 400px; }
-  .hero__badge { right: 0; }
   .hero__scroll { grid-column: 1; }
+  .hero__avail { font-size: .7rem; padding: .4rem .9rem; }
+  .hero__badge { padding: .9rem 1.2rem; min-width: 100px; }
 
   .work__grid {
     grid-template-columns: 1fr;
@@ -1223,7 +1233,6 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 
 @media (max-width: 480px) {
   .hero__headline { font-size: clamp(2.5rem, 10vw, 3.5rem); }
-  .hero__avail { left: 0; top: -1rem; }
   .testi-card blockquote { font-size: 1.1rem; }
   .about__stats { grid-template-columns: 1fr; gap: 0; }
 }
