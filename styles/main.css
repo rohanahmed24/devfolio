@@ -19,7 +19,7 @@
   --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
 
   --section-px:  clamp(1.5rem, 5vw, 6rem);
-  --section-py:  clamp(5rem, 10vw, 10rem);
+  --section-py:  clamp(3.5rem, 7vw, 6rem);
   --gap:         clamp(1rem, 2vw, 2rem);
 
   --nav-h: 5rem;
@@ -65,7 +65,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 
 .section-header {
   max-width: 700px;
-  margin-bottom: clamp(3rem, 6vw, 5rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .section-title {
@@ -314,7 +314,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 ═══════════════════════════════════════════════════════════ */
 .hero {
   min-height: 100svh;
-  padding: var(--nav-h) var(--section-px) 4rem;
+  padding: var(--nav-h) var(--section-px) 3rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr auto;
@@ -322,12 +322,14 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   align-items: center;
   position: relative;
   overflow: hidden;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .hero__left {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.75rem;
   padding-right: 2rem;
 }
 
@@ -414,7 +416,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 .hero__avail {
   position: absolute;
   top: 1.25rem;
-  left: -1.5rem;
+  left: 0;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: 100px;
@@ -426,6 +428,11 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   gap: .5rem;
   box-shadow: 0 4px 24px rgba(0,0,0,.06);
   white-space: nowrap;
+  z-index: 2;
+}
+
+@media (min-width: 769px) {
+  .hero__avail { left: -1.5rem; }
 }
 
 .hero__avail-dot {
@@ -445,7 +452,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 .hero__badge {
   position: absolute;
   bottom: 2rem;
-  right: -2rem;
+  right: 0;
   background: var(--ink);
   color: var(--white);
   border-radius: 12px;
@@ -456,6 +463,11 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   gap: .2rem;
   min-width: 120px;
   box-shadow: 0 8px 32px rgba(0,0,0,.18);
+  z-index: 2;
+}
+
+@media (min-width: 769px) {
+  .hero__badge { right: -2rem; }
 }
 .hero__badge-num {
   font-family: var(--serif);
@@ -510,35 +522,30 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 .work {
   padding: var(--section-py) var(--section-px);
   background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.work .section-header {
+  width: 100%;
+  max-width: 1400px;
 }
 
 .work__grid {
   display: grid;
-  grid-template-columns: 7fr 5fr;
-  gap: clamp(1rem, 2vw, 1.75rem);
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: start;
+  width: 100%;
+  max-width: 1400px;
 }
 
-/* Asymmetric layout — matches jules studio alternating pattern */
-.project-card--wide  { grid-column: 1; }
-.project-card--narrow { grid-column: 2; }
-/* flip the 2nd row */
-.project-card:nth-child(3) { grid-column: 1; grid-row: 2; }
-.project-card:nth-child(4) { grid-column: 2; grid-row: 2; }
-.project-card--wide:nth-child(4) { grid-column: 2; }
-.project-card--narrow:nth-child(3) { grid-column: 1; }
-
-/* Reorder to achieve the asymmetric pattern */
-.work__grid {
-  grid-template-columns: 6fr 5fr;
-}
+/* Asymmetric layout — wide cards get more space */
 .project-card:nth-child(1) { grid-column: 1; }
-.project-card:nth-child(2) { grid-column: 2; }
-.project-card:nth-child(3) { grid-column: 1; }
-.project-card:nth-child(4) { grid-column: 2; }
-
-/* Offset 2nd & 4th card vertically for visual rhythm */
-.project-card:nth-child(2),
-.project-card:nth-child(4) { margin-top: clamp(2rem, 6vw, 5rem); }
+.project-card:nth-child(2) { grid-column: 2; margin-top: clamp(3rem, 8vw, 6rem); }
+.project-card:nth-child(3) { grid-column: 2; }
+.project-card:nth-child(4) { grid-column: 1; margin-top: clamp(3rem, 8vw, 6rem); }
 
 .project-card__link { display: block; }
 
@@ -548,7 +555,18 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   border-radius: 2px;
   aspect-ratio: 4/3;
 }
-.project-card--narrow .project-card__img-wrap { aspect-ratio: 3/4; }
+
+/* First and fourth cards (left column) are wider landscape */
+.project-card:nth-child(1) .project-card__img-wrap,
+.project-card:nth-child(4) .project-card__img-wrap {
+  aspect-ratio: 16/10;
+}
+
+/* Second and third cards (right column) are portrait */
+.project-card:nth-child(2) .project-card__img-wrap,
+.project-card:nth-child(3) .project-card__img-wrap {
+  aspect-ratio: 3/4;
+}
 
 .project-card__img-wrap img {
   width: 100%;
@@ -626,9 +644,10 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 }
 
 .work__cta {
-  margin-top: clamp(3rem, 5vw, 5rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -679,13 +698,23 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 ═══════════════════════════════════════════════════════════ */
 .services {
   padding: var(--section-py) var(--section-px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.services .section-header {
+  width: 100%;
+  max-width: 1400px;
 }
 
 .services__layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(3rem, 6vw, 8rem);
+  gap: clamp(3rem, 5vw, 5rem);
   align-items: start;
+  width: 100%;
+  max-width: 1400px;
 }
 
 .services__list {
@@ -697,7 +726,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   display: flex;
   align-items: flex-start;
   gap: 1.5rem;
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
   transition: opacity .35s ease;
@@ -755,7 +784,10 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 }
 
 /* Image panel */
-.services__images { position: sticky; top: 8rem; height: clamp(350px, 55vh, 600px); }
+.services__images {
+  position: relative;
+  height: clamp(350px, 55vh, 600px);
+}
 .svc-img {
   position: absolute;
   inset: 0;
@@ -773,9 +805,21 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 .testimonials {
   padding: var(--section-py) var(--section-px);
   background: var(--bg-alt);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.testimonials__swiper { overflow: visible; }
+.testimonials .section-header {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.testimonials__swiper {
+  overflow: visible;
+  width: 100%;
+  max-width: 1000px;
+}
 
 .swiper-wrapper { align-items: stretch; }
 
@@ -867,8 +911,10 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   padding: var(--section-py) var(--section-px);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(3rem, 6vw, 8rem);
+  gap: clamp(3rem, 5vw, 5rem);
   align-items: start;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .about__visual { position: sticky; top: 8rem; }
@@ -975,9 +1021,20 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 .faq {
   padding: var(--section-py) var(--section-px);
   background: var(--bg-alt);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.faq__list { max-width: 760px; }
+.faq .section-header {
+  width: 100%;
+  max-width: 900px;
+}
+
+.faq__list {
+  max-width: 900px;
+  width: 100%;
+}
 
 .faq-item { border-bottom: 1px solid var(--border); }
 
@@ -987,7 +1044,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 1.5rem 0;
+  padding: 1.25rem 0;
   text-align: left;
   font-size: clamp(.95rem, 1.2vw, 1.1rem);
   font-weight: 400;
@@ -1027,7 +1084,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   transition: max-height .5s var(--ease-out-expo);
 }
 .faq-item__a p {
-  padding-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
   color: var(--ink-60);
   line-height: 1.7;
   font-size: .9375rem;
@@ -1040,13 +1097,15 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   padding: var(--section-py) var(--section-px);
   background: var(--ink);
   color: var(--white);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 4rem;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 4rem;
   position: relative;
   overflow: hidden;
 }
+
+.cta-band__content { position: relative; z-index: 2; max-width: 600px; }
 
 .cta-band__content { position: relative; z-index: 2; }
 .cta-band__content .section-label { color: rgba(255,255,255,.5); }
@@ -1178,7 +1237,8 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
     gap: 3rem;
   }
   .cta-band {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    text-align: center;
   }
   .cta-band__deco { display: none; }
 }
@@ -1199,8 +1259,9 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   .hero__left { padding-right: 0; }
   .hero__right { justify-content: center; }
   .hero__image-frame { width: 100%; max-width: 400px; }
-  .hero__badge { right: 0; }
   .hero__scroll { grid-column: 1; }
+  .hero__avail { font-size: .7rem; padding: .4rem .9rem; }
+  .hero__badge { padding: .9rem 1.2rem; min-width: 100px; }
 
   .work__grid {
     grid-template-columns: 1fr;
@@ -1214,7 +1275,10 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
   .about { grid-template-columns: 1fr; }
   .about__visual { position: static; }
 
-  .cta-band { grid-template-columns: 1fr; }
+  .cta-band {
+    flex-direction: column;
+    text-align: center;
+  }
   .cta-band__deco { display: none; }
 
   .footer__top { flex-direction: column; }
@@ -1223,7 +1287,6 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 
 @media (max-width: 480px) {
   .hero__headline { font-size: clamp(2.5rem, 10vw, 3.5rem); }
-  .hero__avail { left: 0; top: -1rem; }
   .testi-card blockquote { font-size: 1.1rem; }
   .about__stats { grid-template-columns: 1fr; gap: 0; }
 }
