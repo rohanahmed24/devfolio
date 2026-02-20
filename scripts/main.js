@@ -309,13 +309,15 @@ function initServices() {
   const images = document.querySelectorAll('.svc-img');
 
   function activateService(index) {
+    if (items[index].classList.contains('active')) return;
+
     items.forEach((item, i) => item.classList.toggle('active', i === index));
 
     images.forEach((img, i) => {
       if (i === index) {
         gsap.to(img, { opacity: 1, scale: 1, duration: .6, ease: 'expo.out' });
         img.classList.add('active');
-      } else {
+      } else if (img.classList.contains('active')) {
         gsap.to(img, { opacity: 0, scale: 1.04, duration: .4, ease: 'expo.out' });
         img.classList.remove('active');
       }
