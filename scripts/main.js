@@ -29,9 +29,6 @@ function splitWords(el) {
   return el.querySelectorAll('.word');
 }
 
-/* ─── Utility: clamp number ─────────────────────────────── */
-const clamp = (min, val, max) => Math.min(Math.max(val, min), max);
-
 /* ════════════════════════════════════════════════════════
    1. LOADER
 ════════════════════════════════════════════════════════ */
