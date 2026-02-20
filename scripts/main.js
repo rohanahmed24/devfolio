@@ -88,7 +88,9 @@ function initLenis() {
       const target = document.querySelector(anchor.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: -80, duration: 1.8 });
+      const nav = document.querySelector('nav');
+      const navHeight = nav ? nav.offsetHeight : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) * 16 || 80);
+      lenis.scrollTo(target, { offset: -navHeight, duration: 1.8 });
     });
   });
 
@@ -309,13 +311,15 @@ function initServices() {
   const images = document.querySelectorAll('.svc-img');
 
   function activateService(index) {
+    if (items[index].classList.contains('active')) return;
+
     items.forEach((item, i) => item.classList.toggle('active', i === index));
 
     images.forEach((img, i) => {
       if (i === index) {
         gsap.to(img, { opacity: 1, scale: 1, duration: .6, ease: 'expo.out' });
         img.classList.add('active');
-      } else {
+      } else if (img.classList.contains('active')) {
         gsap.to(img, { opacity: 0, scale: 1.04, duration: .4, ease: 'expo.out' });
         img.classList.remove('active');
       }
@@ -541,12 +545,13 @@ function initCursor() {
     z-index: 9998;
     mix-blend-mode: difference;
     will-change: transform;
+    transform: translate(-50%, -50%);
     transition: width .3s, height .3s, background .3s;
   `;
   document.body.appendChild(cursor);
 
-  let mx = 0, my = 0;
-  let cx = 0, cy = 0;
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let cx = mx, cy = my;
 
   window.addEventListener('mousemove', e => {
     mx = e.clientX;
@@ -556,7 +561,7 @@ function initCursor() {
   function tick() {
     cx += (mx - cx) * 0.12;
     cy += (my - cy) * 0.12;
-    cursor.style.transform = `translate(${cx - 6}px, ${cy - 6}px)`;
+    cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
     requestAnimationFrame(tick);
   }
   tick();
