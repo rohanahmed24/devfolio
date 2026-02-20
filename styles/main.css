@@ -837,7 +837,7 @@ button { cursor: pointer; background: none; border: none; font: inherit; }
 }
 
 .testimonials__swiper {
-  overflow: visible;
+  overflow: hidden;
   width: 100%;
   max-width: 1000px;
 }
