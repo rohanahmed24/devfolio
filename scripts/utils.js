@@ -10,6 +10,6 @@
 const clamp = (min, val, max) => Math.min(Math.max(val, min), max);
 
 // Export for Node.js testing environment
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module === 'object' && typeof module.exports === 'object') {
   module.exports = { clamp };
 }
