@@ -5,8 +5,12 @@
 
 'use strict';
 
+(function() {
+
 /* ─── Register GSAP plugins ────────────────────────────── */
-gsap.registerPlugin(ScrollTrigger);
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 /* ─── Utility: split a text node into word spans ────────── */
 function splitWords(el) {
@@ -616,29 +620,42 @@ function initWorkCTA() {
 /* ════════════════════════════════════════════════════════
    BOOT — run everything
 ════════════════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded', () => {
-  initLoader();
-  initNav();
-  initLenis();
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initLoader();
+    initNav();
+    initLenis();
 
-  // All scroll-triggered init after a tick so DOM is fully ready
-  requestAnimationFrame(() => {
-    initSectionTitles();
-    initHeroParallax();
-    initWorkCards();
-    initWorkCTA();
-    initMarquee();
-    initServices();
-    initTestimonials();
-    initAbout();
-    initFAQ();
-    initCTA();
-    initFooter();
-    initMagneticButtons();
-    initCursor();
-    initScrollProgress();
+    // All scroll-triggered init after a tick so DOM is fully ready
+    requestAnimationFrame(() => {
+      initSectionTitles();
+      initHeroParallax();
+      initWorkCards();
+      initWorkCTA();
+      initMarquee();
+      initServices();
+      initTestimonials();
+      initAbout();
+      initFAQ();
+      initCTA();
+      initFooter();
+      initMagneticButtons();
+      initCursor();
+      initScrollProgress();
 
-    // Refresh ScrollTrigger after all is set up
-    ScrollTrigger.refresh();
+      // Refresh ScrollTrigger after all is set up
+      ScrollTrigger.refresh();
+    });
   });
-});
+}
+
+// Export for Node.js testing environment
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    splitWords,
+    animateCounter,
+    initFAQ
+  };
+}
+
+})();
