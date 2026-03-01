@@ -45,7 +45,7 @@ function initLoader() {
     pctEl.textContent  = Math.round(progress);
   }, 80);
 
-  window.addEventListener('load', () => {
+  const onLoad = () => {
     clearInterval(interval);
     // Snap to 100
     bar.style.width   = '100%';
@@ -61,7 +61,13 @@ function initLoader() {
         revealHero();
       }
     });
-  });
+  };
+
+  if (document.readyState === 'complete') {
+    onLoad();
+  } else {
+    window.addEventListener('load', onLoad);
+  }
 }
 
 /* ════════════════════════════════════════════════════════
